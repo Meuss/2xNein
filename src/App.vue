@@ -15,7 +15,7 @@
             <div class="sonst">sonst wirds</div>
             <div class="teurer">TEURER!</div>
           </div>
-          <svg version="1.1" id="blob" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+          <svg version="1.1" class="blob" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
             viewBox="0 0 1311.1 1311.2" style="enable-background:new 0 0 1311.1 1311.2;" xml:space="preserve">
               <path d="M105.4,1018.4c1.4-6.4,2.3-12.9,4.3-19.1c7.1-21.4,14.6-42.7,21.8-64.1c10.8-32.1-4.7-65.1-36.1-78.1
                 c-21.4-8.8-42.6-18-63.7-27.4c-19.4-8.6-29-25.5-24-43.8c1.9-7,5.8-13.9,10.4-19.5c14.3-17.2,29.4-33.9,44.3-50.7
@@ -50,8 +50,60 @@
 </template>
 
 <script>
+import { TimelineMax, Power4 } from 'gsap';
+import GSDevTools from 'gsap/GSDevTools';
+
+
 export default {
   name: 'App',
+  data() {
+    return {
+      ease: 'Power4.easeInOut',
+      master: new TimelineMax({ delay: 0, repeat: -1, repeatDelay: 1 }),
+    };
+  },
+  methods: {
+    animation() {
+      this.master.add(this.start());
+      this.master.add(this.continue());
+      this.master.add(this.showAll());
+    },
+    start() {
+      const tl = new TimelineMax({ id: 'start' });
+      tl.set('.first', { autoAlpha: 0 }, 0);
+      tl.set('.second', { autoAlpha: 0 }, 0);
+      tl.set('h2', { autoAlpha: 0 }, 0);
+      tl.set('.korb', { autoAlpha: 0 }, 0);
+      tl.set('.blob', { autoAlpha: 0 }, 0);
+      tl.set('.sonst', { autoAlpha: 0 }, 0);
+      tl.set('.teurer', { autoAlpha: 0 }, 0);
+      tl.to('.first', 2, { autoAlpha: 1, ease: Power4.ease }, '+=1');
+      tl.to('.second', 2, { autoAlpha: 1, ease: Power4.ease }, '+=1');
+      return tl;
+    },
+    continue() {
+      const tl = new TimelineMax({ id: 'continue' });
+      tl.to('h2', 4, { autoAlpha: 1, ease: Power4.ease }, '+=1');
+      return tl;
+    },
+    showAll() {
+      const tl = new TimelineMax({ id: 'showAll' });
+      tl.to('.first', 1, { autoAlpha: 1 }, 0);
+      tl.to('.second', 1, { autoAlpha: 1 }, 0);
+      tl.to('h2', 1, { autoAlpha: 1 }, 0);
+      tl.to('.korb', 1, { autoAlpha: 1 }, 0);
+      tl.to('.blob', 1, { autoAlpha: 1 }, 0);
+      tl.to('.sonst', 1, { autoAlpha: 1 }, 0);
+      tl.to('.teurer', 1, { autoAlpha: 1 }, 0);
+      tl.to('.website', 10, { autoAlpha: 1 }, 0);
+      return tl;
+    },
+  },
+  mounted() {
+    // console.log(window.gsap);
+    this.animation();
+    GSDevTools.create();
+  },
 };
 </script>
 
@@ -65,6 +117,8 @@ body {
   background-color: #333;
 }
 #app {
+  // width: 1920px;
+  // height: 1080px;
   width: 1920px;
   height: 1080px;
   padding: 100px;
@@ -141,7 +195,7 @@ h2 {
       font-size: 62px;
     }
   }
-  #blob {
+  .blob {
     position: absolute;
     path {
       fill: #D9318A;
