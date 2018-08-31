@@ -9,7 +9,7 @@
         <h2>zur Fair-Food-Initiative und Ernährungssouveränität</h2>
       </div>
       <div class="images">
-        <img class="korb" src="./assets/korb.png">
+        <img class="korb" src="./assets/korb-2.png">
         <div class="svg-wrapper">
           <div class="svg-text">
             <div class="sonst">sonst wird’s</div>
@@ -50,7 +50,7 @@
 </template>
 
 <script>
-import { TimelineMax, Power0, Power2, Power4, Back } from 'gsap';
+import { TimelineMax, Power0, Power4, Back } from 'gsap';
 import SplitText from 'gsap/SplitText';
 import GSDevTools from 'gsap/GSDevTools';
 
@@ -67,11 +67,11 @@ export default {
       this.master.add(this.start());
       this.master.add(this.bigText(), '+=0.5');
       this.master.add(this.bigText2(), '+=0.3');
-      this.master.add(this.shiftText(), '+=0.6');
-      this.master.add(this.showDate());
-      this.master.add(this.showKorb(), '-=0.4');
-      this.master.add(this.pulseBlob(), '-=0.4');
-      this.master.add(this.showBottom(), '-=5.2');
+      this.master.add(this.shiftText(), '+=0.5');
+      this.master.add(this.showDate(), '-=0.1');
+      this.master.add(this.showKorb(), '-=0.3');
+      this.master.add(this.pulseBlob(), '-=0.2');
+      this.master.add(this.showBottom(), '-=5');
       this.master.add(this.end());
     },
     start() {
@@ -90,23 +90,22 @@ export default {
       const tl = new TimelineMax({ id: 'bigText' });
       const mySplitText = new SplitText('.second', { type: 'chars' });
       const chars = mySplitText.chars;
-      tl.set(chars, { autoAlpha: 0, x: -60 }, '-=0');
-      tl.set('.second', { scale: 1.8, x: 372 }, '+=0');
-      tl.set('.second', { autoAlpha: 1 }, '+=0');
+      tl.set('.second', { autoAlpha: 1, y: 320 }, '+=0');
+      tl.set(chars, { autoAlpha: 0, x: -60 }, '+=0');
       tl.staggerTo(chars, 0, { autoAlpha: 1, ease: Power4.ease }, 0.2, 0);
       tl.staggerTo(chars, 0, { x: 0, ease: Power4.ease }, 0.1, 0);
       return tl;
     },
     bigText2() {
       const tl = new TimelineMax({ id: 'bigText2' });
-      tl.set('h2', { autoAlpha: 0, y: 130, scale: 1.8, x: 393 }, 0);
-      tl.to('h2', 0.4, { autoAlpha: 1, y: 65, ease: Back.easeOut }, 0);
+      tl.set('h2', { autoAlpha: 0, y: 360 }, 0);
+      tl.to('h2', 0.4, { autoAlpha: 1, y: 300, ease: Back.easeOut }, 0);
       return tl;
     },
     shiftText() {
       const tl = new TimelineMax({ id: 'shiftText' });
-      tl.to('.second', 1, { x: 0, scale: 1, ease: Power2.easeInOut }, 0);
-      tl.to('h2', 1, { x: 12, y: 0, scale: 1, ease: Power2.easeInOut }, 0);
+      tl.to('.second', 0.9, { y: 0, ease: Power4.easeInOut }, 0);
+      tl.to('h2', 0.9, { y: 0, ease: Power4.easeInOut }, 0);
       return tl;
     },
     showDate() {
@@ -117,8 +116,8 @@ export default {
     },
     showKorb() {
       const tl = new TimelineMax({ id: 'showKorb' });
-      tl.set('.korb', { x: 100, scale: 0.95 }, 0);
-      tl.to('.korb', 0.6, { autoAlpha: 1, x: 0, scale: 1, ease: Back.easeOut }, 0);
+      tl.set('.korb', { x: 150, scale: 0.95 }, 0);
+      tl.to('.korb', 0.6, { autoAlpha: 1, x: -20, scale: 1, ease: Back.easeOut }, 0);
       return tl;
     },
     pulseBlob() {
@@ -136,13 +135,13 @@ export default {
     },
     end() {
       const tl = new TimelineMax({ id: 'end' });
-      tl.to('.first', 0.3, { autoAlpha: 0, x: -15 }, 0);
-      tl.to('.second', 0.3, { autoAlpha: 0, x: -10 }, 0);
-      tl.to('h2', 0.3, { autoAlpha: 0, y: -10 }, 0);
-      tl.to('.korb', 0.3, { autoAlpha: 0, x: 10 }, 0);
-      tl.to('.svg-wrapper', 0.3, { autoAlpha: 0, x: 15 }, 0);
-      tl.to('.bottom', 0.3, { autoAlpha: 0, x: -10 }, 0);
-      tl.to('.website', 0.3, { autoAlpha: 0, x: 10 }, 0);
+      tl.to('.first', 0.3, { autoAlpha: 0 }, 0);
+      tl.to('.second', 0.3, { autoAlpha: 0 }, 0);
+      tl.to('h2', 0.3, { autoAlpha: 0 }, 0);
+      tl.to('.korb', 0.3, { autoAlpha: 0 }, 0);
+      tl.to('.svg-wrapper', 0.3, { autoAlpha: 0 }, 0);
+      tl.to('.bottom', 0.3, { autoAlpha: 0 }, 0);
+      tl.to('.website', 0.3, { autoAlpha: 0 }, 0);
       return tl;
     },
   },
@@ -163,57 +162,53 @@ body {
   background-color: #00FF00;
 }
 #app {
-  width: 1920px;
-  height: 1080px;
-  padding: 100px;
+  width: 1080px;
+  height: 1920px;
+  padding: 100px 70px;
   background-color: white;
   position: relative;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   background-color: #00FF00;
+  overflow: hidden;
 }
 .top-wrapper {
   position: relative;
   display: flex;
+  flex-direction: column;
   .text {
     position: relative;
-    margin-top: 102px;
+    margin-top: 144px;
   }
   .images {
-    position: absolute;
-    right: 0px;
-    top: 50%;
-    transform: translateY(-50%);
+    margin-top: 80px;
   }
 }
 h1 {
   @include GeoBlack;
 }
 h1.first {
-  font-size: 100px;
-  position: absolute;
-  top: -90px;
+  font-size: 85px;
+  margin-bottom: 40px;
 }
 h1.second {
-  font-size: 280px;
-  line-height: 280px;
+  font-size: 268px;
+  line-height: 268px;
   letter-spacing: 2px;
 }
 h2 {
   @include GeoBlack;
-  font-size: 45px;
-  margin-top: -60px;
+  font-size: 65px;
 }
 .korb {
-  margin-top: -100px;
-  width: 900px;
+  margin-left: -100px;
+  width: 1054px;
 }
 .svg-wrapper {
-  width: 350px;
+  width: 397px;
   position: absolute;
-  right: 0px;
-  bottom: 125px;
+  right: 33px;
+  bottom: 101px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -230,11 +225,11 @@ h2 {
     @include Radical;
     text-transform: uppercase;
     .sonst {
-      font-size: 38px;
+      font-size: 41px;
     }
     .teurer {
       margin-top: 10px;
-      font-size: 62px;
+      font-size: 69px;
     }
   }
   .blob {
@@ -246,8 +241,8 @@ h2 {
 }
 .bottom {
   position: absolute;
-  bottom: 30px;
-  left: 40px;
+  bottom: 70px;
+  left: 70px;
 }
 .logo {
   width: 300px;
@@ -257,7 +252,7 @@ h2 {
   @include Radical;
   color: #888;
   position: absolute;
-  right: 40px;
-  bottom: 30px;
+  right: 70px;
+  bottom: 70px;
 }
 </style>
